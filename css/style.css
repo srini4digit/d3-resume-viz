@@ -2,6 +2,10 @@
 width: 1400px;
 }
 
+div.page-header h1 {
+	font-family: 'Raleway', sans-serif;
+}
+
 .axis path,
 .axis line {
     fill: none;
@@ -21,4 +25,55 @@ width: 1400px;
 
 .arcs {
 	opacity: 0.4;
+}
+
+div.panel {
+	margin-top: 100px;
+}
+
+.label {
+	padding: 15px;
+	margin : 5px; 
+}
+
+.filters {
+	cursor: pointer;
+	display: inline;
+	font-size: 75%;
+	font-weight: bold;
+	line-height: 1;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: .25em;
+	padding: 15px;
+	margin : 5px; 
+	background-color: white;
+	color: #428bca;
+	border: solid thin #428bca;
+}
+
+.filters.active {
+	background-color: #428bca;
+	color: white;
+}
+
+ul.skillFilters {
+	margin-top: 20px;
+}
+
+ul.skillFilters > li{
+	float: left;
+	margin-left: 5px;
+	margin-top: 3px;
+	padding: 3px;
+	border: solid thin orange;
+	color: orange;
+	list-style: none;
+	cursor: pointer;
+}
+
+li.liSkills.active {
+	color: white ;
+	background-color: orange;
 }

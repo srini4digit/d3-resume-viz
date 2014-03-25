@@ -13,6 +13,7 @@
     <!-- Font Awesome External Link -->
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <!-- Custom styles for this template -->
+    <link href='http://fonts.googleapis.com/css?family=Raleway:100' rel='stylesheet' type='text/css'>
     <link href="css/style.css" rel="stylesheet">
     
   </head>
@@ -29,28 +30,39 @@
             </div>
         </div>
         <div class="row clearfix">
-            <div class="col-md-9 column">
-                 <span class="label label-default">Filters</span>
-                <div class="btn-group">
-                     <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-align-left"></em> Left</button> <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-align-center"></em> Center</button> <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-align-right"></em> Right</button> <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-align-justify"></em> Justify</button>
+            <div class="col-md-12 column">
+                <div class="btn-group btn-group-justified">
+                <span class="label label-default">Filters</span>
+                <span class="filters" data-attr="academics"><i class="fa fa-book fa-2x"></i> Academics </span>
+                <span class="filters" data-attr="professional"><i class="fa fa-briefcase fa-2x"></i> Professional </span>
+                <span class="filters" data-attr="skills"><i class="fa fa-magic fa-2x"></i> Skills </span> 
                 </div>
-                <h2>
-                    Heading
-                </h2>
+                <div class="divSkillFilters">
+                    <ul id="ulSkillFilters" class="skillFilters">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix" style="margin-top : 20px">
+            <div class="col-md-9 column">
                 <div id='divSvg' >
                 </div> <!-- End of divSvg -->
 
             </div>
             <div class="col-md-3 column">
-                <h2>
-                    Heading
-                </h2>
-                <p>
-                    Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-                </p>
-                <p>
-                    <a class="btn" href="#">View details »</a>
-                </p>
+                <div class="panel panel-info">
+                      <div class="panel-heading">
+                        <h3 class="panel-title" id="moreInfoTitle">Panel title</h3>
+                      </div>
+                      <div class="panel-body" id="moreInfoBody">
+                        Panel content
+                      </div>
+                </div>
+                <div class="">
+                    <div id='tblLegend'>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -64,7 +76,9 @@
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="js/d3.v3.js"></script>
     <script src="js/d3.tip.js"></script>
+    <script src="js/resume.js"></script>
     <script src="js/d3.resume.js"></script>
+    <script src="js/script.js"></script>
     
   </body>
 </html>
