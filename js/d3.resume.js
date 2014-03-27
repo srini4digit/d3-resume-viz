@@ -1,7 +1,7 @@
 
 var margin = {top: 10, right: 50, bottom: 10, left: 50},
-    width = 1000 - margin.left - margin.right,
-    height = 960 - margin.top - margin.bottom;
+    width = 800 - margin.left - margin.right,
+    height = 800 - margin.top - margin.bottom;
 
 var colorScale = d3.scale.category10();
 //var timeFormat = d3.time.format("%Y/%m");
@@ -176,7 +176,7 @@ if(showCircles)
                               .style("opacity","0.2")
                               .on('mouseover',function(d){ 
                                 tip.show((this.parentNode.classList[0])); 
-                                $("#moreInfoBody").html(JSON.stringify(d));
+                                // $("#moreInfoBody").html(JSON.stringify(d));
                               } )
                               .on('mouseout', tip.hide);
 }
