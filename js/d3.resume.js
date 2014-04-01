@@ -1,6 +1,6 @@
 
 var margin = {top: 10, right: 50, bottom: 10, left: 50},
-    width = 800 - margin.left - margin.right,
+    width = 600 - margin.left - margin.right,
     height = 800 - margin.top - margin.bottom;
 
 var colorScale = d3.scale.category10();
@@ -172,7 +172,10 @@ if(showCircles)
                                 var center = y(timeFormat.parse(d.to)) - dia/2;
                                 return "translate(0,"+center+")";
                               })
-                              .style("fill",function(d,i){ return colorScale(d.what);})
+                              //.style("fill",function(d,i){ return colorScale(d.what);})
+                              .style("fill","white")
+                              .style("stroke",function(d,i){ return colorScale(d.what);})
+                              .style("stroke-width","5px")
                               .style("opacity","0.2")
                               .on('mouseover',function(d){ 
                                 tip.show((this.parentNode.classList[0])); 
@@ -182,7 +185,6 @@ if(showCircles)
 }
 
 }
-
 
 function drawLegend(dataForLegend,legendKey){
    d3.select("#tblLegend").selectAll("tr")
@@ -238,18 +240,4 @@ function drawLegend(dataForLegend,legendKey){
       })*/
       ;
   
-}
-
-function createSkillFilters(){
-
-var skillsFilters = d3.select("#ulSkillFilters").selectAll("li")
-                        .data(data.skills,function(d){ if(d) return d.name;})
-                        .enter()
-                          .append("li")
-                          .classed({"liSkills" : true})
-                          .text(function(d){ if(d) return d.name;})
-                          .on("click",function(d){
-                            $(this).toggleClass("active");
-                            showSkills(true);
-                          });
 }
