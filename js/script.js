@@ -52,17 +52,6 @@ $("span.filters").click(function(){ // Actions when clicked on the filters on th
         d3.selectAll("g.professionalPeriods > *,g.professionalPeriodsText > *").style("opacity",0);
       }
     }
-	else if (selectedFilter == "skills")
-		{
-		 if ($(this).hasClass("active"))
-		 	createSkillFilters();
-		 else
-		 	{ 
-		 		showSkills(false);
-				d3.selectAll(".liSkills").remove();
-		 	 }
-		}
-
 
 });
 
@@ -109,6 +98,10 @@ var skillsFilters = d3.select("#ulSkillFilters").selectAll("li")
                             showSkills(false);
                             labelCircle.style("opacity",0);
                             yearsCircle.style("opacity",0);
+                          })
+                          .on("click",function(d){
+                            $(this).toggleClass("active");
+                            showSkills(true);
                           })
                           ;
 }
