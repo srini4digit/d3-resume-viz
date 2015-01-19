@@ -4,8 +4,7 @@ var margin = {top: 10, right: 50, bottom: 10, left: 50},
     height = 800 - margin.top - margin.bottom;
 
 var colorScale = d3.scale.category10();
-// var randomColors = ["#e5de20","#ff5edc","#a5ffff","#ffee70","#8d9ed6","#2f7f93","#ae86d8","#afd136","#8595d3","#8fd6d8","#310cd6","#5456d8","#0b4b7a","#5c80d6","#1a9e46","#73efa6","#fcc2d0","#389aea","#e3f282"];
-//var timeFormat = d3.time.format("%Y/%m");
+var timeFormat = d3.time.format("%Y/%m");
 var centerHash = {};
 
 var y = d3.time.scale()
@@ -38,6 +37,7 @@ var arcG = svg.append("g")
               .attr("transform","translate("+width/2+",0)");
 
 var labelCircle = svg.append("text").attr("class","labelText").text("Yaay label").style("opacity",0);
+var yearsCircle = svg.append("text").attr("class","labelText").text("Years").style("opacity",0);
 
 function showAcademics(showCircles){
 //Clear existing stuff
@@ -179,6 +179,12 @@ if(showCircles)
                                 labelCircle.attr("transform","translate("+xAlign+","+center+")");
                                 labelCircle.style("opacity",1);
 
+                                var numYears = msToYears(Math.abs(timeFormat.parse(d.to) - timeFormat.parse(d.from)));
+                                yearsCircle.text(numYears);
+                                var yAlign = center + 15;
+                                yearsCircle.attr("transform","translate("+xAlign+","+yAlign+")");
+                                yearsCircle.style("opacity",1);
+                                
                                 return arc;
                               })
                               .attr("transform",function(d,i){
@@ -195,61 +201,6 @@ if(showCircles)
 
 }
 
-function drawLegend(dataForLegend,legendKey){
-   d3.select("#tblLegend").selectAll("tr")
-    .data(dataForLegend)
-    .enter()
-      .append("tr")
-      .append("td")
-      .text(function(d,i){ return d.what;})
-      .style("border-left",function(d,i){ 
-          if(legendKey == "skills")
-            return "solid 5px "+colorScale(d.what);
-          else  
-            return "solid 5px "+colorScale(legendKey);
-      })
-      .style("padding-left", "5px")
-      .style("height", "25px")
-      /*.on("mouseover",function(d,i){
-        if($("#tblLegend tr td.active").length == 0 ) {
-          // Reduce opacity of other causes 
-          var tmp = d3.selectAll("g.cause").attr("fill-opacity",0.2);
-          // Highlight the hovered one
-          d3.select(tmp[0][i]).attr("fill-opacity",1);
-          d3.selectAll("#tblLegend tr td").style("opacity",0.2);
-          d3.select(this).style("opacity",1);
-        }
-        
-      })
-      .on("mouseout",function(d,i){
-        if($("#tblLegend tr td.active").length == 0 ) {
-          d3.selectAll("g.cause").attr("fill-opacity",1);
-          d3.selectAll("#tblLegend tr td").style("opacity",1);  
-        }
-
-        
-      })
-      .on("click", function(d,i){
-        // If clicked on an active link, remove the filter
-        if($(this).hasClass("active")) $(this).removeClass("active");
-        else{
-            // Reduce opacity of all others
-          d3.selectAll("#tblLegend tr td").style("opacity",0.2);
-          d3.select(this).style("opacity",1);
-
-          if($("#tblLegend tr td.active").length == 0 ) $(this).addClass("active");
-          else {
-            $("#tblLegend tr td.active").each(function(){ $(this).removeClass("active")});
-            $(this).addClass("active");
-            }
-        }
-        
-        updateStackedBarChart();
-
-      })*/
-      ;
-  
-}
 
 function createResumeText(){
   var sectionArray = ["academics","professional","skills"];
@@ -308,4 +259,10 @@ function createResumeText(){
          showSkills(false);
       });
                    
+}
+
+function msToYears(ms){
+var numYears = ms/(3600000*24*365);
+var numMonths = numYears - Math.floor(numYears);
+return Math.floor(numYears)+'y'+Math.round((numMonths * 12))+'m';
 }

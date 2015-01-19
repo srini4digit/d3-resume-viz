@@ -71,6 +71,7 @@ var skillsFilters = d3.select("#ulSkillFilters").selectAll("li")
                             $(this).toggleClass("active");
                             showSkills(false);
                             labelCircle.style("opacity",0);
+                            yearsCircle.style("opacity",0);
                           })
                           ;
 }
