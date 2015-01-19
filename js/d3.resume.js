@@ -39,97 +39,94 @@ var arcG = svg.append("g")
 var labelCircle = svg.append("text").attr("class","labelText").text("Yaay label").style("opacity",0);
 var yearsCircle = svg.append("text").attr("class","labelText").text("Years").style("opacity",0);
 
-function showAcademics(showCircles){
-//Clear existing stuff
-arcG.select("g.academicPeriods").remove();
-arcG.select("g.academicPeriodsText").remove();
+function createAcademics(){
 
-if(showCircles)
-{
-    var academicPeriods = arcG.append("g").attr("class","academicPeriods")
-                     .selectAll("path")
-                     .data(data.academics)
-                     .enter()
-                      .append("path")
-                      .attr("d", function(d,i){
-                         var dia = Math.abs(y(timeFormat.parse(d.to)) - y(timeFormat.parse(d.from)));
-                         var arc = d3.svg.arc().innerRadius(0).outerRadius(dia/2)
-                                       .startAngle(0 * (Math.PI/180)) //converting from degs to radians
-                                       .endAngle(Math.PI); //just radians
-                          return arc();
-                      })
-                      .attr("transform",function(d){
-                        var dia = Math.abs(y(timeFormat.parse(d.to)) - y(timeFormat.parse(d.from)));
-                        var center = y(timeFormat.parse(d.to)) - dia/2;
-                        return "translate(0,"+center+")";
-                      })
-                      .style("fill",function(d,i){ return colorScale("academics");})
-                      .style("opacity","0")
-                      .transition()
-                      .duration(2000)
-                      .delay(function(d,i){ return i*500;})
-                      .style("opacity","0.5");
+var academicPeriods = arcG.append("g").attr("class","academicPeriods")
+                 .selectAll("path")
+                 .data(data.academics)
+                 .enter()
+                  .append("path")
+                  .attr("d", function(d,i){
+                     var dia = Math.abs(y(timeFormat.parse(d.to)) - y(timeFormat.parse(d.from)));
+                     var arc = d3.svg.arc().innerRadius(0).outerRadius(dia/2)
+                                   .startAngle(0 * (Math.PI/180)) //converting from degs to radians
+                                   .endAngle(Math.PI); //just radians
+                      return arc();
+                  })
+                  .attr("transform",function(d){
+                    var dia = Math.abs(y(timeFormat.parse(d.to)) - y(timeFormat.parse(d.from)));
+                    var center = y(timeFormat.parse(d.to)) - dia/2;
+                    return "translate(0,"+center+")";
+                  })
+                  .attr("class", function(d){return d.what.hashCode();})
+                  .style("fill",function(d,i){ return colorScale("academics");})
+                  .style("opacity","0")
 
-  var academicPeriodsLabels = arcG.append("g").attr("class","academicPeriodsText").selectAll("text")
-                     .data(data.academics)
-                     .enter()
-                      .append("text")
-                      .attr("transform",function(d){
-                        var dia = Math.abs(y(timeFormat.parse(d.to)) - y(timeFormat.parse(d.from)));
-                        var center = y(timeFormat.parse(d.to)) - dia/2;
-                        var xDist = 10 + dia /2 ;
-                        return "translate("+ xDist+","+center+")";
-                      })
-                      .text(function(d){
-                        return d.what;
-                      });
-
+var academicPeriodsLabels = arcG.append("g").attr("class","academicPeriodsText").selectAll("text")
+                 .data(data.academics)
+                 .enter()
+                  .append("text")
+                  .attr("transform",function(d){
+                    var dia = Math.abs(y(timeFormat.parse(d.to)) - y(timeFormat.parse(d.from)));
+                    var center = y(timeFormat.parse(d.to)) - dia/2;
+                    var xDist = 10 + dia /2 ;
+                    return "translate("+ xDist+","+center+")";
+                  })
+                  .attr("class", function(d){return d.what.hashCode();})
+                  .style("opacity","0")
+                  .text(function(d){return d.what;});
 }
 
-}
-
-function showProfessional(showCircles){
-//Clear existing stuff
-arcG.select("g.profPeriods").remove();
-arcG.select("g.arcLabels").remove();
-if(showCircles)
-{
-    var profPeriods = arcG.append("g").attr("class","profPeriods").selectAll("path")
-                     .data(data.professional)
-                     .enter()
-                      .append("path")
-                      .attr("d", function(d,i){
-                         var dia = Math.abs(y(timeFormat.parse(d.to)) - y(timeFormat.parse(d.from)));
-                         var arc = d3.svg.arc().innerRadius(0).outerRadius(dia/2)
-                                       .startAngle(0 * (Math.PI/180)) //converting from degs to radians
-                                       .endAngle(Math.PI); //just radians
-                          return arc();
-                      })
-                      .attr("transform",function(d){
-                        var dia = Math.abs(y(timeFormat.parse(d.to)) - y(timeFormat.parse(d.from)));
-                        var center = y(timeFormat.parse(d.to)) - dia/2;
-                        return "translate(0,"+center+")";
-                      })
-                      .style("fill",function(d,i){ return colorScale("professional");})
-                      .style("opacity","0.5");
-
-
-  var arcLabels = arcG.append("g").attr("class","arcLabels").selectAll("text")
-                     // .data(d3.merge([data.academics,data.professional]))
-                     .data(data.professional)
-                     .enter()
-                      .append("text")
-                      .attr("transform",function(d){
-                        var dia = Math.abs(y(timeFormat.parse(d.to)) - y(timeFormat.parse(d.from)));
-                        var center = y(timeFormat.parse(d.to)) - dia/2;
-                        var xDist = 10 + dia /2 ;
-                        return "translate("+ xDist+","+center+")";
-                      })
-                      .text(function(d){
-                        return d.what;
-                      });                    
-
-}
+function createProfessional(){
+  var profPeriods = arcG.append("g").attr("class","professionalPeriods").selectAll("path")
+                   .data(data.professional)
+                   .enter()
+                    .append("path")
+                    .attr("d", function(d,i){
+                       var dia = Math.abs(y(timeFormat.parse(d.to)) - y(timeFormat.parse(d.from)));
+                       var arc = d3.svg.arc().innerRadius(0).outerRadius(dia/2)
+                                     .startAngle(0 * (Math.PI/180)) //converting from degs to radians
+                                     .endAngle(Math.PI); //just radians
+                        return arc();
+                    })
+                    .attr("transform",function(d){
+                      var dia = Math.abs(y(timeFormat.parse(d.to)) - y(timeFormat.parse(d.from)));
+                      var center = y(timeFormat.parse(d.to)) - dia/2;
+                      return "translate(0,"+center+")";
+                    })
+                    .attr("class", function(d){return d.what.hashCode();})
+                    .style("fill",function(d,i){ return colorScale("professional");})
+                    .style("opacity",0);
+var arcLabels = arcG.append("g").attr("class","professionalPeriodsText").selectAll("text")
+                   .data(data.professional)
+                   .enter()
+                    .append("text")
+                    .attr("transform",function(d){
+                      var dia = Math.abs(y(timeFormat.parse(d.to)) - y(timeFormat.parse(d.from)));
+                      var center = y(timeFormat.parse(d.to)) - dia/2;
+                      var xDist = 10 + dia /2 ;
+                      return "translate("+ xDist+","+center+")";
+                    })
+                    .attr("class", function(d){return d.what.hashCode();})
+                    .style("opacity",0)
+                    .text(function(d){
+                      return d.what;
+                    });
+var profYearsLabel = arcG.append("g").attr("class","professionalPeriodsText professionalPeriodsYearsText").selectAll("text")
+                    .data(data.professional)
+                    .enter()
+                    .append("text")
+                    .attr("transform",function(d){
+                      var dia = Math.abs(y(timeFormat.parse(d.to)) - y(timeFormat.parse(d.from)));
+                      var center = y(timeFormat.parse(d.to)) - dia/2 + 15;
+                      var xDist = 10 + dia /2 ;
+                      return "translate("+ xDist+","+center+")";
+                    })
+                    .attr("class", function(d){return d.what.hashCode();})
+                    .style("opacity",0)
+                    .text(function(d){
+                      return msToYears(Math.abs(timeFormat.parse(d.to) - timeFormat.parse(d.from)));
+                    });
 
 }
 
@@ -239,7 +236,7 @@ function createResumeText(){
          
           for(var i=0; i< data[d].length; i++) {
             if(d == "academics" || d == "professional") { 
-            returnText += "<a class='selectable'><p class='heading'>" + data[d][i].what + "</p><p class='pullquote'>" + data[d][i].where +"</p></p></a>";
+            returnText += "<div class='selectable' data-hash='"+data[d][i].what.hashCode()+"'><p class='heading'>" + data[d][i].what + "</p><p class='pullquote'>" + data[d][i].where +"</p></p></div>";
             } 
             else if (d == "skills") {
            returnText += '<div class="divSkillFilters"><ul id="ulSkillFilters" class="skillFilters"></ul></div>';
@@ -261,8 +258,14 @@ function createResumeText(){
                    
 }
 
+//Utility Functions
+
 function msToYears(ms){
 var numYears = ms/(3600000*24*365);
 var numMonths = numYears - Math.floor(numYears);
 return Math.floor(numYears)+'y'+Math.round((numMonths * 12))+'m';
+}
+
+String.prototype.hashCode = function(){
+  return this.replace(/[^A-Za-z]/g,"");
 }

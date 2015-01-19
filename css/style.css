@@ -34,15 +34,16 @@ div.page-header h1 {
 	margin-top: 20%;
 }
 
-.academicPeriodsText > text ,.arcLabels > text {
+.academicPeriodsText > text ,.professionalPeriodsText > text {
 	font-size : 14px;
 	fill : black;
 	stroke : black;
 }
-.arcs {
+
+/*.arcs {
 	opacity: 0.4;
 }
-
+*/
 div.panel {
 	margin-top: 100px;
 }
@@ -120,10 +121,15 @@ span.spanSkills.active {
 	padding-right: 0px;
 }
 
-a.selectable{
-  text-decoration: none;
+div.selectable{
   cursor: pointer;
   color: black;
+  border-radius: 10px;
+  padding: 3px 10px	;
+}
+
+div.selectable:hover {
+	background-color: aqua;
 }
 
 #resumeNavbar {
@@ -143,7 +149,7 @@ a.selectable{
 
 .resume-text {
 	margin-top: 10px;
-	height: 700px;
+	height: 80%;
 	overflow-y: auto;
 }
 
