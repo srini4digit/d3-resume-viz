@@ -4,7 +4,9 @@ var margin = {top: 10, right: 50, bottom: 10, left: 50},
     height = 800 - margin.top - margin.bottom;
 
 var colorScale = d3.scale.category10();
+// var randomColors = ["#e5de20","#ff5edc","#a5ffff","#ffee70","#8d9ed6","#2f7f93","#ae86d8","#afd136","#8595d3","#8fd6d8","#310cd6","#5456d8","#0b4b7a","#5c80d6","#1a9e46","#73efa6","#fcc2d0","#389aea","#e3f282"];
 //var timeFormat = d3.time.format("%Y/%m");
+var centerHash = {};
 
 var y = d3.time.scale()
     .domain([new Date(2003, 0, 0), now])
@@ -34,10 +36,8 @@ svg.append("g")
 var arcG = svg.append("g")
               .attr("class","arcs")
               .attr("transform","translate("+width/2+",0)");
-// Tip setting
-tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return d; });
-tip.direction('w');
-arcG.call(tip);
+
+var labelCircle = svg.append("text").attr("class","labelText").text("Yaay label").style("opacity",0);
 
 function showAcademics(showCircles){
 //Clear existing stuff
@@ -136,6 +136,7 @@ if(showCircles)
 function showSkills(showCircles){
 //Clear existing stuff
 svg.select("g.skills").remove();
+centerHash = {};
 if(showCircles)
 {
   var skillsG = svg.append("g")
@@ -143,8 +144,7 @@ if(showCircles)
               .attr("transform","translate("+width/2+",0)");
   
   var activeSkills = d3.selectAll(".liSkills.active").data();
-
-  var filteredSkills = data.skills.filter(function(d){
+    var filteredSkills = data.skills.filter(function(d){
     if(activeSkills.indexOf(d) != -1)
       return true;
     else
@@ -162,26 +162,35 @@ if(showCircles)
                               .append("path")
                               .attr("d", function(d,i){
                                  var dia = Math.abs(y(timeFormat.parse(d.to)) - y(timeFormat.parse(d.from)));
-                                 var arc = d3.svg.arc().innerRadius(0).outerRadius(dia/2)
-                                               .startAngle(Math.PI) //converting from degs to radians
-                                               .endAngle(2 * Math.PI); //just radians
-                                  return arc();
+                                 var r = dia /2 ;
+                                 var secondR = r;
+                                 var center = y(timeFormat.parse(d.to)) - r;
+                                 if(centerHash[center]){
+                                  secondR = r - (centerHash[center] * 10);
+                                  centerHash[center] = centerHash[center] + 1;
+                                }
+                                else {
+                                  centerHash[center] = 1;
+                                }
+                                var arc = "M0,"+r+"A"+r+","+secondR+" 0 1,1 0,"+(-1*r);
+
+                                labelCircle.text(this.parentNode.classList[0]);
+                                var xAlign = (width/2)-(dia/2) - 50;
+                                labelCircle.attr("transform","translate("+xAlign+","+center+")");
+                                labelCircle.style("opacity",1);
+
+                                return arc;
                               })
-                              .attr("transform",function(d){
+                              .attr("transform",function(d,i){
                                 var dia = Math.abs(y(timeFormat.parse(d.to)) - y(timeFormat.parse(d.from)));
                                 var center = y(timeFormat.parse(d.to)) - dia/2;
                                 return "translate(0,"+center+")";
                               })
                               //.style("fill",function(d,i){ return colorScale(d.what);})
+                              .style("stroke",function(d,i){ return colorScale(d.what) ; })
                               .style("fill","white")
-                              .style("stroke",function(d,i){ return colorScale(d.what);})
-                              .style("stroke-width","5px")
-                              .style("opacity","0.2")
-                              .on('mouseover',function(d){ 
-                                tip.show((this.parentNode.classList[0])); 
-                                // $("#moreInfoBody").html(JSON.stringify(d));
-                              } )
-                              .on('mouseout', tip.hide);
+                              .style("fill-opacity","0")
+                              .style("stroke-width","3px");
 }
 
 }
@@ -240,4 +249,63 @@ function drawLegend(dataForLegend,legendKey){
       })*/
       ;
   
+}
+
+function createResumeText(){
+  var sectionArray = ["academics","professional","skills"];
+    
+    d3.select(".resume-text").selectAll("h4").remove();
+    // d3.select("#ulResumeTextNav").selectAll("li").remove();
+
+    // Make the Nav bar
+    d3.select("#ulResumeTextNav")
+      .selectAll("li")
+      .data(sectionArray)
+      .enter()
+        .append("li")
+        .append("a")
+        .attr("href",function(d){ return "#"+d;})
+        .html(function(d){ return d});
+
+  // Make the Resume text section
+    var resumeText = d3.select(".resume-text")
+
+    var sections = resumeText.selectAll("sections")
+               .data(sectionArray);
+
+    var articles = sections.enter()
+                  .append("section")
+                  .append("article");
+
+    articles.append("h4")
+          .attr("id",function(d){ return d;})
+          .text(function(d){ return d; });
+
+    articles.append("p")
+        .attr("class",function(d){ return d;})
+        .html(function(d){
+         var returnText = "";
+         
+          for(var i=0; i< data[d].length; i++) {
+            if(d == "academics" || d == "professional") { 
+            returnText += "<a class='selectable'><p class='heading'>" + data[d][i].what + "</p><p class='pullquote'>" + data[d][i].where +"</p></p></a>";
+            } 
+            else if (d == "skills") {
+           returnText += '<div class="divSkillFilters"><ul id="ulSkillFilters" class="skillFilters"></ul></div>';
+            } 
+          } 
+     
+        return returnText;
+        });
+
+    d3.selectAll(".liSkills")
+      .on("mouseover",function(d,i){
+          d3.select(this).classed({"active" : true});
+          showSkills(true);
+      })
+      .on("mouseout",function(d,i){
+         d3.select(this).classed({"active" : false});
+         showSkills(false);
+      });
+                   
 }
