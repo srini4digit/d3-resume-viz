@@ -11,7 +11,7 @@
 */
 
 createResumeText();
-createSkillFilters();
+createSkills();
 createAcademics();
 createProfessional();
 
@@ -52,6 +52,19 @@ $("span.filters").click(function(){ // Actions when clicked on the filters on th
         d3.selectAll("g.professionalPeriods > *,g.professionalPeriodsText > *").style("opacity",0);
       }
     }
+    else if (selectedFilter == "skills"){
+    // Select the skills with a delay
+      if ($(this).hasClass("active"))
+       d3.selectAll(".liSkills").transition()
+          .delay(function(d,i){ return i*400;}).style("opacity",1).each("end", function(d,i){
+          d3.select(this).classed({"active" : true});
+          showSkills(true); 
+        });
+      else
+        { d3.selectAll(".liSkills").classed({"active" : false});
+         showSkills(true); 
+       }
+    }
 
 });
 
@@ -69,40 +82,3 @@ $("#ulResumeTextNav li").click(function(){
     $("#ulResumeTextNav li").removeClass("active");
     $(this).toggleClass("active");
 });
-
-/* Function Declarations
- /$$$$$$$$                                  /$$$$$$$                      /$$
-| $$_____/                                 | $$__  $$                    | $$
-| $$    /$$   /$$ /$$$$$$$   /$$$$$$$      | $$  \ $$  /$$$$$$   /$$$$$$$| $$
-| $$$$$| $$  | $$| $$__  $$ /$$_____/      | $$  | $$ /$$__  $$ /$$_____/| $$
-| $$__/| $$  | $$| $$  \ $$| $$            | $$  | $$| $$$$$$$$| $$      | $$
-| $$   | $$  | $$| $$  | $$| $$            | $$  | $$| $$_____/| $$      | $$
-| $$   |  $$$$$$/| $$  | $$|  $$$$$$$      | $$$$$$$/|  $$$$$$$|  $$$$$$$| $$
-|__/    \______/ |__/  |__/ \_______/      |_______/  \_______/ \_______/|__/
-*/
-
-function createSkillFilters(){
-
-var skillsFilters = d3.select("#ulSkillFilters").selectAll("li")
-                        .data(data.skills,function(d){ if(d) return d.name;})
-                        .enter()
-                          .append("li")
-                          .classed({"liSkills" : true, "active" : false})
-                          .text(function(d){ if(d) return d.name;})
-                          .on("mouseover",function(d){
-                            $(this).toggleClass("active");
-                            showSkills(true);
-                          })
-                          .on("mouseout",function(d){
-                            $(this).toggleClass("active");
-                            showSkills(false);
-                            labelCircle.style("opacity",0);
-                            yearsCircle.style("opacity",0);
-                          })
-                          .on("click",function(d){
-                            $(this).toggleClass("active");
-                            showSkills(true);
-                          })
-                          ;
-}
-

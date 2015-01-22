@@ -40,10 +40,10 @@ div.page-header h1 {
 	stroke : black;
 }
 
-/*.arcs {
-	opacity: 0.4;
+g.skills > g {
+	visibility: hidden;
 }
-*/
+
 div.panel {
 	margin-top: 100px;
 }
