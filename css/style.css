@@ -1,14 +1,20 @@
 /*
 Color scheme
 
-#A2CFA5
-E0E7AB
-F5974E
-E96B56
-D24344  reddish
+#3f7cac - lightBlue - filter
+#79b473 - green
+#070707 - black
+#3f3047 - purple - text right side
+#3b0d11 - red
 */
+
+body {
+	/*background: url("../img/bg.jpg"); */
+	/*background-size: cover;*/
+}
+
 .container {
-width: 1400px;
+width: 90%;
 padding: 0px;
 }
 
@@ -16,6 +22,17 @@ div.page-header h1 {
 	font-family: 'Archivo Narrow', sans-serif;
 	font-size: 45px;
 }
+
+/* SVG
+  /$$$$$$  /$$    /$$  /$$$$$$ 
+ /$$__  $$| $$   | $$ /$$__  $$
+| $$  \__/| $$   | $$| $$  \__/
+|  $$$$$$ |  $$ / $$/| $$ /$$$$
+ \____  $$ \  $$ $$/ | $$|_  $$
+ /$$  \ $$  \  $$$/  | $$  \ $$
+|  $$$$$$/   \  $/   |  $$$$$$/
+ \______/     \_/     \______/ 
+*/
 
 .axis path,
 .axis line {
@@ -32,6 +49,7 @@ div.page-header h1 {
 
 #divSvg {
 	margin-top: 10%;
+	background-color: rgba(256,256,256,0.4);
 }
 
 .academicPeriodsText > text ,.professionalPeriodsText > text {
@@ -43,8 +61,18 @@ div.page-header h1 {
 g.skills > g {
 	visibility: hidden;
 }
+/* Right
+ /$$$$$$$  /$$$$$$  /$$$$$$  /$$   /$$ /$$$$$$$$
+| $$__  $$|_  $$_/ /$$__  $$| $$  | $$|__  $$__/
+| $$  \ $$  | $$  | $$  \__/| $$  | $$   | $$   
+| $$$$$$$/  | $$  | $$ /$$$$| $$$$$$$$   | $$   
+| $$__  $$  | $$  | $$|_  $$| $$__  $$   | $$   
+| $$  \ $$  | $$  | $$  \ $$| $$  | $$   | $$   
+| $$  | $$ /$$$$$$|  $$$$$$/| $$  | $$   | $$   
+|__/  |__/|______/ \______/ |__/  |__/   |__/   
+*/
 
-div.panel {
+/*div.panel {
 	margin-top: 100px;
 }
 
@@ -55,9 +83,9 @@ div.panel {
 
 div.btn-group span:nth-child(2) {
 	margin-top: 20px;
-}
+}*/
 
-.filters {
+/*.filters {
 	cursor: pointer;
 	display: block;
 	font-size: 75%;
@@ -70,51 +98,37 @@ div.btn-group span:nth-child(2) {
 	padding: 15px;
 	margin : 5px; 
 	background-color: white;
-	color: #428bca;
-	border: solid thin #428bca;
+	color: #3f7cac;
+	border: solid thin #3f7cac;
 }
 
 .filters.active {
-	background-color: #428bca;
+	background-color: #3f7cac;
 	color: white;
-}
+}*/
 
-ul.skillFilters {
-	margin-top: 20px;
-}
+
+ul.skillFilters { margin-top: 20px; }
 
 ul.skillFilters > li{
 	float: left;
 	margin-left: 5px;
 	margin-top: 3px;
 	padding: 3px;
-	border: solid thin #E96B56;
-	color: #E96B56;
 	list-style: none;
 	cursor: pointer;
 }
 
-li.liSkills.active {
-	color: white ;
-	background-color: #E96B56;
-}
-
-span.spanSkills {
-	float: left;
-	clear: both;
-	margin-left: 5px;
-	margin-top: 3px;
-	padding: 3px;
-	border: solid thin #E96B56;
-	color: #E96B56;
-	list-style: none;
-	cursor: pointer;
-}
-
-span.spanSkills.active {
-	color: white ;
-	background-color: #E96B56;
-}
+/* Left Side
+ /$$       /$$$$$$$$ /$$$$$$$$ /$$$$$$$$
+| $$      | $$_____/| $$_____/|__  $$__/
+| $$      | $$      | $$         | $$   
+| $$      | $$$$$   | $$$$$      | $$   
+| $$      | $$__/   | $$__/      | $$   
+| $$      | $$      | $$         | $$   
+| $$$$$$$$| $$$$$$$$| $$         | $$   
+|________/|________/|__/         |__/   
+*/
 
 .resumeTextBlock {
 	margin-top: 40px;
@@ -126,17 +140,25 @@ div.selectable{
   color: black;
   border-radius: 10px;
   padding: 3px 10px	;
+  opacity: 1;
+}
+
+/*p.academics > div.selectable:hover
+{
+	background-color: #3f7cac;
+	transition : background-color 1s;
 }
 
 div.selectable:hover {
-	background-color: aqua;
-}
+	background-color: #79b473;
+	transition : background-color 1s;
+}*/
 
 #resumeNavbar {
 	width: 100%;
     top: 0;
     position: relative;
-    border-bottom: thin solid blue;
+    border-bottom: thin solid #3f7cac;
 }
 
 .navbar-collapse{
@@ -144,7 +166,7 @@ div.selectable:hover {
 }
 
 #ulResumeTextNav li.active {
-	border-bottom: thick solid blue;
+	border-bottom: thick solid #3f7cac;
 }
 
 .resume-text {
@@ -157,15 +179,13 @@ div.selectable:hover {
 /*
 Text inside the resume text block
 */
-
-
 section article h4 {
 	text-transform: capitalize;
 	font-size: 35px;
 	/*line-height: 21px;*/
 	margin-bottom: 5px;
 	font-family: "Mate";
-	color: #F5974E;
+	color: #3f3047;
 	font-weight: 400;
 	font-style: normal;
 }

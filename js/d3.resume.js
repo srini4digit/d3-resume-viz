@@ -3,7 +3,7 @@ var margin = {top: 10, right: 50, bottom: 10, left: 50},
     width = 800 - margin.left - margin.right,
     height = 800 - margin.top - margin.bottom;
 
-var colorScale = d3.scale.category10();
+var colorScale = d3.scale.category20();
 var timeFormat = d3.time.format("%Y/%m");
 var centerHash = {};
 // Create the scale for y axis. TODO : Make this dynamic
@@ -147,15 +147,23 @@ function createSkills(){
                           .append("li")
                           .classed({"liSkills" : true, "active" : false, "clicked" : false})
                           .text(function(d){ if(d) return d.name;})
-                          .on("mouseover",function(d){
+                          .style("border","solid thin")
+                          .style("border-color",function(d,i){ return colorScale(i);})
+                          .on("mouseover",function(d,i){
                             if(! $(this).hasClass("clicked")) {
                               $(this).toggleClass("active");
+                              if($(this).hasClass("active")){ // On hover change the color
+                                d3.select(this).style("background-color",colorScale(i));
+                                d3.select(this).style("color","white");
+                              }
                               showSkills(true);
                             }
                           })
-                          .on("mouseout",function(d){
+                          .on("mouseout",function(d,i){
                             if(! $(this).hasClass("clicked"))
                               { $(this).toggleClass("active");
+                                d3.select(this).style("background-color","white");
+                                d3.select(this).style("color",colorScale(i));
                                 showSkills(false);
                               }
                           })
@@ -205,7 +213,7 @@ function createSkills(){
                   return "translate(0,"+center+")";
                 })
                 //.style("fill",function(d,i){ return colorScale(d.what);})
-                .style("stroke",function(d,i){ return colorScale(d.what) ; })
+                .style("stroke",function(d,i,j){ return colorScale(j) ; })
                 .style("fill","white")
                 .style("fill-opacity","0")
                 .style("stroke-width","3px");

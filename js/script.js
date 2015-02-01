@@ -52,7 +52,7 @@ $("span.filters").click(function(){ // Actions when clicked on the filters on th
         d3.selectAll("g.professionalPeriods > *,g.professionalPeriodsText > *").style("opacity",0);
       }
     }
-    else if (selectedFilter == "skills"){
+  /*  else if (selectedFilter == "skills"){
     // Select the skills with a delay
       if ($(this).hasClass("active"))
        d3.selectAll(".liSkills").transition()
@@ -64,7 +64,7 @@ $("span.filters").click(function(){ // Actions when clicked on the filters on th
         { d3.selectAll(".liSkills").classed({"active" : false});
          showSkills(true); 
        }
-    }
+    } */
 
 });
 
