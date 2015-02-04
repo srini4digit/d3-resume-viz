@@ -9,7 +9,8 @@ var data = {
                     "from" : "2003/07",
                     "to" : "2007/07",
                     "what" : "Bachelors in Engineering IT",
-                    "where" : "VJTI, University of Mumbai"
+                    "where" : "VJTI, University of Mumbai",
+                    "details" : "Veermata Jijabai Technological Institute (VJTI), formerly Victoria Jubilee Technical Institute, is located in Mumbai, Maharashtra, India, and one of the oldest engineering colleges in Asia. Founded in 1887, it was rechristened to its present name on 26 January 1997.[2] VJTI is an academically and administratively autonomous institute, however it is a part of the University of Mumbai and its degrees & diplomas are issued by the University, and the institute is financially supported by the Government of Maharashtra.After being awarded academic & administrative autonomy in 2004, VJTI became operational under the administration of a Board of Governors.[3] VJTI is also the Central Technical Institute of Maharashtra State. The Institute is reputed for excellent training in programs in engineering and technology at the certificate,[4] diploma, degree, post-graduate and doctoral levels, as well as numerous well-regarded research works."
                   },
                   {
                     "from" : "2007/07",

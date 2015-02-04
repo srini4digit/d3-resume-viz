@@ -72,6 +72,11 @@ g.skills > g {
 |__/  |__/|______/ \______/ |__/  |__/   |__/   
 */
 
+.page-details {
+	height: 80%;
+	overflow: auto;
+}
+
 /*div.panel {
 	margin-top: 100px;
 }
@@ -108,17 +113,6 @@ div.btn-group span:nth-child(2) {
 }*/
 
 
-ul.skillFilters { margin-top: 20px; }
-
-ul.skillFilters > li{
-	float: left;
-	margin-left: 5px;
-	margin-top: 3px;
-	padding: 3px;
-	list-style: none;
-	cursor: pointer;
-}
-
 /* Left Side
  /$$       /$$$$$$$$ /$$$$$$$$ /$$$$$$$$
 | $$      | $$_____/| $$_____/|__  $$__/
@@ -129,10 +123,12 @@ ul.skillFilters > li{
 | $$$$$$$$| $$$$$$$$| $$         | $$   
 |________/|________/|__/         |__/   
 */
-
 .resumeTextBlock {
-	margin-top: 40px;
+	/*margin-top: 40px;*/
+	transform : translate("0px","40px");
 	padding-right: 0px;
+	height: 950px;
+	overflow-y: auto;
 }
 
 div.selectable{
@@ -143,18 +139,7 @@ div.selectable{
   opacity: 1;
 }
 
-/*p.academics > div.selectable:hover
-{
-	background-color: #3f7cac;
-	transition : background-color 1s;
-}
-
-div.selectable:hover {
-	background-color: #79b473;
-	transition : background-color 1s;
-}*/
-
-#resumeNavbar {
+.resumeNavbar {
 	width: 100%;
     top: 0;
     position: relative;
@@ -216,4 +201,15 @@ section article p.intro {
 	 font-family: "Anaheim";
 	 font-weight: 400;
 	 font-style: normal;
+}
+
+ul.skillFilters { margin-top: 20px; display: inline-block;}
+
+ul.skillFilters > li{
+	float: left;
+	margin-left: 5px;
+	margin-top: 3px;
+	padding: 3px;
+	list-style: none;
+	cursor: pointer;
 }

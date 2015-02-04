@@ -12,4 +12,8 @@ Changes:
 
 To Do:
 
-2. Show more details on clicking
+1. Show more details on clicking
+2. Have a fancy scrollbar
+3. Generalize the right arcs
+4. Connect to Wikipedia for more details
+5. On clicking the tab, blink the section

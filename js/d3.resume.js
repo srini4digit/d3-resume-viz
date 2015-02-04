@@ -53,7 +53,6 @@ var academicPeriods = arcG.append("g").attr("class","academicPeriods")
                   .attr("class", function(d){return d.what.hashCode();})
                   .style("fill",function(d,i){ return colorScale("academics");})
                   .style("opacity","0");
-
 var academicPeriodsLabels = arcG.append("g").attr("class","academicPeriodsText").selectAll("text")
                  .data(data.academics)
                  .enter()
@@ -257,8 +256,7 @@ function showSkills(){
 }
 
 
-function createResumeText(){
-  var sectionArray = ["academics","professional","skills"];
+function createResumeText(sectionArray){
   d3.select(".resume-text").selectAll("h4").remove();
  
   // Make the Nav bar
@@ -287,22 +285,23 @@ function createResumeText(){
 
     articles.append("p")
         .attr("class",function(d){ return d;})
-        .html(function(d){
+        .html(function(d,i){
          var returnText = "";
          
           for(var i=0; i< data[d].length; i++) {
-            if(d == "academics" || d == "professional") { 
-            returnText += "<div class='selectable' data-hash='"+data[d][i].what.hashCode()+"'><p class='heading'>" + data[d][i].what + "</p><p class='pullquote'>" + data[d][i].where +"</p></p></div>";
+            if(d != "skills" ) { 
+            returnText += "<div class='selectable' data-category='"+d+"'' data-hash='"+data[d][i].what.hashCode()+"'><p class='heading'>" + data[d][i].what + "</p><p class='pullquote'>" + data[d][i].where +"</p></p></div>";
             } 
-            else if (d == "skills") {
-           returnText += '<div class="divSkillFilters"><ul id="ulSkillFilters" class="skillFilters"></ul></div>';
+            else {
+            returnText += '<div class="divSkillFilters"><ul id="ulSkillFilters" class="skillFilters"></ul></div>';
+            break;
             } 
           } 
      
         return returnText;
         });
 
-    d3.selectAll(".liSkills")
+    d3.selectAll(".liSkills") // Show the arcs when hovering over the skills
       .on("mouseover",function(d,i){
           d3.select(this).classed({"active" : true});
           showSkills(true);
@@ -311,6 +310,30 @@ function createResumeText(){
          d3.select(this).classed({"active" : false});
          showSkills(false);
       });
+
+    // Show the circles when you hover over text on the resume text
+      d3.selectAll(".selectable").on("mouseover",function(d,i){
+        if(! $(this).hasClass("clicked")) {
+          $(this).toggleClass("active");
+          if($(this).hasClass("active")){ // On hover change the color
+             var sel = d3.select(this).attr("data-hash");
+             var selColor = colorScale(d3.select(this).attr("data-category"));
+             d3.selectAll("."+sel).style("opacity",config.circleOpacity); // Show the arcs
+             d3.select(this).style("background-color",selColor);
+          }
+        }
+      }).on("mouseout",function(d,i){
+        if(! $(this).hasClass("clicked"))
+        { $(this).toggleClass("active");
+          var sel = d3.select(this).attr("data-hash");
+          var selColor = colorScale(d3.select(this).attr("data-category"));
+          d3.selectAll("."+sel).style("opacity",0); // Show the arcs
+          d3.select(this).style("background-color","white");
+        }
+      }).on("click",function(d){
+        $(this).toggleClass("clicked");
+      });
+  
                    
 }
 
