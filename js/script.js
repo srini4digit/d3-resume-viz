@@ -12,8 +12,10 @@
 var sectionArray = ["academics","professional","skills","interests"]; // Make this dynamic
 createResumeText(sectionArray);
 createSkills();
-createAcademics();
-createProfessional();
+// createAcademics();
+// createProfessional();
+createRightArcs(data.academics,"academics");
+createRightArcs(data.professional,"professional");
 
 var config = {};
 config["circleOpacity"] = 0.7;

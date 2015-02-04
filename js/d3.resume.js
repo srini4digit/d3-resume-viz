@@ -31,55 +31,9 @@ var arcG = svg.append("g")
               .attr("class","arcs")
               .attr("transform","translate("+width/2+",0)");
 
-function createAcademics(){
-// Create the arcs for the academics
-var academicPeriods = arcG.append("g").attr("class","academicPeriods")
-                 .selectAll("path")
-                 .data(data.academics)
-                 .enter()
-                  .append("path")
-                  .attr("d", function(d,i){
-                     var dia = Math.abs(y(timeFormat.parse(d.to)) - y(timeFormat.parse(d.from)));
-                     var arc = d3.svg.arc().innerRadius(0).outerRadius(dia/2)
-                                   .startAngle(0 * (Math.PI/180)) //converting from degs to radians
-                                   .endAngle(Math.PI); //just radians
-                      return arc();
-                  })
-                  .attr("transform",function(d){
-                    var dia = Math.abs(y(timeFormat.parse(d.to)) - y(timeFormat.parse(d.from)));
-                    var center = y(timeFormat.parse(d.to)) - dia/2;
-                    return "translate(0,"+center+")";
-                  })
-                  .attr("class", function(d){return d.what.hashCode();})
-                  .style("fill",function(d,i){ return colorScale("academics");})
-                  .style("opacity","0");
-var academicPeriodsLabels = arcG.append("g").attr("class","academicPeriodsText").selectAll("text")
-                 .data(data.academics)
-                 .enter()
-                  .append("text")
-                  .attr("transform",function(d){
-                    var dia = Math.abs(y(timeFormat.parse(d.to)) - y(timeFormat.parse(d.from)));
-                    var center = y(timeFormat.parse(d.to)) - dia/2;
-                    var xDist = 10 + dia /2 ;
-                    return "translate("+ xDist+","+center+")";
-                  })
-                  .attr("class", function(d){return d.what.hashCode();})
-                  .style("opacity","0")
-                  .text(function(d){return d.what;});
-// Enable timeline interactiveness
-  academicPeriods.on("mouseover",function(d,i){
-                    d3.select(this).style("opacity",0.7);
-                    d3.select(academicPeriodsLabels[0][i]).style("opacity",0.7);
-                  })
-                  .on("mouseout",function(d,i){
-                    d3.select(this).style("opacity",0);
-                    d3.select(academicPeriodsLabels[0][i]).style("opacity",0);
-                  });      
-}
-
-function createProfessional(){
-  var professionalPeriods = arcG.append("g").attr("class","professionalPeriods").selectAll("path")
-                   .data(data.professional)
+function createRightArcs(rightData,category){
+  var rightArcs = arcG.append("g").attr("class","rightArcs").selectAll("path")
+                   .data(rightData)
                    .enter()
                     .append("path")
                     .attr("d", function(d,i){
@@ -95,10 +49,10 @@ function createProfessional(){
                       return "translate(0,"+center+")";
                     })
                     .attr("class", function(d){return d.what.hashCode();})
-                    .style("fill",function(d,i){ return colorScale("professional");})
+                    .style("fill",function(d,i){ return colorScale(category);})
                     .style("opacity",0);
-  var arcLabels = arcG.append("g").attr("class","professionalPeriodsText").selectAll("text")
-                   .data(data.professional)
+  var arcLabels = arcG.append("g").attr("class","rightArcsText").selectAll("text")
+                   .data(rightData)
                    .enter()
                     .append("text")
                     .attr("transform",function(d){
@@ -112,8 +66,8 @@ function createProfessional(){
                     .text(function(d){
                       return d.what;
                     });
-  var profYearsLabels = arcG.append("g").attr("class","professionalPeriodsText professionalPeriodsYearsText").selectAll("text")
-                    .data(data.professional)
+  var rightArcsLabels = arcG.append("g").attr("class","rightArcsText rightArcsYearsText").selectAll("text")
+                    .data(rightData)
                     .enter()
                     .append("text")
                     .attr("transform",function(d){
@@ -128,14 +82,14 @@ function createProfessional(){
                       return msToYears(Math.abs(timeFormat.parse(d.to) - timeFormat.parse(d.from)));
                     });
 // Enable timeline interactiveness
-  professionalPeriods.on("mouseover",function(d,i){
+  rightArcs.on("mouseover",function(d,i){
                     d3.select(this).style("opacity",0.7);
                     d3.select(arcLabels[0][i]).style("opacity",0.7);
-                    d3.select(profYearsLabels[0][i]).style("opacity",0.7);
+                    d3.select(rightArcsLabels[0][i]).style("opacity",0.7);
                   }).on("mouseout",function(d,i){
                     d3.select(this).style("opacity",0);
                     d3.select(arcLabels[0][i]).style("opacity",0);
-                    d3.select(profYearsLabels[0][i]).style("opacity",0);
+                    d3.select(rightArcsLabels[0][i]).style("opacity",0);
                   });  
 }
 
@@ -283,23 +237,54 @@ function createResumeText(sectionArray){
           .attr("id",function(d){ return d;})
           .text(function(d){ return d; });
 
-    articles.append("p")
-        .attr("class",function(d){ return d;})
-        .html(function(d,i){
-         var returnText = "";
-         
-          for(var i=0; i< data[d].length; i++) {
-            if(d != "skills" ) { 
-            returnText += "<div class='selectable' data-category='"+d+"'' data-hash='"+data[d][i].what.hashCode()+"'><p class='heading'>" + data[d][i].what + "</p><p class='pullquote'>" + data[d][i].where +"</p></p></div>";
-            } 
-            else {
-            returnText += '<div class="divSkillFilters"><ul id="ulSkillFilters" class="skillFilters"></ul></div>';
-            break;
-            } 
-          } 
-     
-        return returnText;
-        });
+  var innerDivs = articles.append("p").attr("class",function(d,i){ return d;}).selectAll("div")
+          .data(function(d,i){ 
+            if(d != "skills")
+              return data[d];
+            else
+              return [data[d][0]]; // Just return one skill.
+          });
+          
+   innerDivs = innerDivs.enter()
+          .append("div")
+          .attr("class",function(d,i,j){ 
+            category = d3.select(articles[0][j]).datum();
+            if(category != "skills") 
+              return "selectable";
+            else
+              return "divSkillFilters";
+          })
+          .attr("data-category",function(d,i,j){
+            category = d3.select(articles[0][j]).datum();
+            if(category != "skills") 
+              return category;
+            else
+              return "";
+          })
+          .attr("data-hash",function(d,i,j){
+            category = d3.select(articles[0][j]).datum();
+            if(category != "skills") 
+              return d.what.hashCode();
+            else
+              return "";
+          });
+
+  innerDivs.append("p").attr("class","heading").html(function(d,i,j){
+            category = d3.select(articles[0][j]).datum();
+            if(category != "skills")
+              return d.what; 
+            else
+              return "";
+          });
+  innerDivs.append("p").attr("class","pullquote").html(function(d,i,j){
+            category = d3.select(articles[0][j]).datum();
+            if(category != "skills")
+              return d.where;
+            else
+              return "";
+          });
+
+  d3.select(".divSkillFilters").append("ul").attr("id","ulSkillFilters").attr("class","skillFilters");
 
     d3.selectAll(".liSkills") // Show the arcs when hovering over the skills
       .on("mouseover",function(d,i){
@@ -332,6 +317,9 @@ function createResumeText(sectionArray){
         }
       }).on("click",function(d){
         $(this).toggleClass("clicked");
+
+        console.log(d3.selectAll(".selectable.clicked").data());
+
       });
   
                    
