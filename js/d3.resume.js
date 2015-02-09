@@ -115,7 +115,7 @@ function createSkills(){
                           .on("mouseout",function(d,i){
                             if(! $(this).hasClass("clicked"))
                               { $(this).toggleClass("active");
-                                d3.select(this).style("background-color","white");
+                                d3.select(this).style("background-color","transparent");
                                 d3.select(this).style("color",colorScale(i));
                                 showSkills(false);
                               }
@@ -167,7 +167,7 @@ function createSkills(){
                 })
                 //.style("fill",function(d,i){ return colorScale(d.what);})
                 .style("stroke",function(d,i,j){ return colorScale(j) ; })
-                .style("fill","white")
+                .style("fill","transparent")
                 .style("fill-opacity","0")
                 .style("stroke-width","3px");
 // Show the labels for the arc                              
@@ -234,6 +234,7 @@ function createResumeText(sectionArray){
                   .append("article");
 
     articles.append("h4")
+          .attr("class","sectionHeading")
           .attr("id",function(d){ return d;})
           .text(function(d){ return d; });
 
@@ -313,12 +314,22 @@ function createResumeText(sectionArray){
           var sel = d3.select(this).attr("data-hash");
           var selColor = colorScale(d3.select(this).attr("data-category"));
           d3.selectAll("."+sel).style("opacity",0); // Show the arcs
-          d3.select(this).style("background-color","white");
+          d3.select(this).style("background-color","transparent");
         }
       }).on("click",function(d){
         $(this).toggleClass("clicked");
 
-        console.log(d3.selectAll(".selectable.clicked").data());
+        var divDetails = d3.select("#divDetails").selectAll("article").data(d3.selectAll(".selectable.clicked").data(),function(d,i){ return d.where;});
+        var detailArticles = divDetails.enter().append("article").style("background-color",function(d){
+                                                if(d.category)
+                                                  return colorScale(d.category);
+                                                else 
+                                                  return "transparent";
+                                              }).style("border-radius","10px").style("color","white");
+            detailArticles.append("h1").attr("class","sectionHeading").html(function(d){ return d.what;});
+            detailArticles.append("p").attr("class","pullquote").html(function(d){ return d.where;});
+            detailArticles.append("p").attr("class","details").html(function(d){ return d.details;});
+            divDetails.exit().remove();                  
 
       });
   

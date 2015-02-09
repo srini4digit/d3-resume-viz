@@ -9,7 +9,7 @@ Color scheme
 */
 
 body {
-	/*background: url("../img/bg.jpg"); */
+	background: url("../img/bg3.jpg"); 
 	/*background-size: cover;*/
 }
 
@@ -61,57 +61,6 @@ div.page-header h1 {
 g.skills > g {
 	visibility: hidden;
 }
-/* Right
- /$$$$$$$  /$$$$$$  /$$$$$$  /$$   /$$ /$$$$$$$$
-| $$__  $$|_  $$_/ /$$__  $$| $$  | $$|__  $$__/
-| $$  \ $$  | $$  | $$  \__/| $$  | $$   | $$   
-| $$$$$$$/  | $$  | $$ /$$$$| $$$$$$$$   | $$   
-| $$__  $$  | $$  | $$|_  $$| $$__  $$   | $$   
-| $$  \ $$  | $$  | $$  \ $$| $$  | $$   | $$   
-| $$  | $$ /$$$$$$|  $$$$$$/| $$  | $$   | $$   
-|__/  |__/|______/ \______/ |__/  |__/   |__/   
-*/
-
-.page-details {
-	height: 80%;
-	overflow: auto;
-}
-
-/*div.panel {
-	margin-top: 100px;
-}
-
-.label {
-	padding: 15px;
-	margin : 5px; 
-}
-
-div.btn-group span:nth-child(2) {
-	margin-top: 20px;
-}*/
-
-/*.filters {
-	cursor: pointer;
-	display: block;
-	font-size: 75%;
-	font-weight: bold;
-	line-height: 1;
-	text-align: center;
-	white-space: nowrap;
-	vertical-align: baseline;
-	border-radius: .25em;
-	padding: 15px;
-	margin : 5px; 
-	background-color: white;
-	color: #3f7cac;
-	border: solid thin #3f7cac;
-}
-
-.filters.active {
-	background-color: #3f7cac;
-	color: white;
-}*/
-
 
 /* Left Side
  /$$       /$$$$$$$$ /$$$$$$$$ /$$$$$$$$
@@ -164,13 +113,11 @@ div.selectable{
 /*
 Text inside the resume text block
 */
-section article h4 {
+.sectionHeading {
 	text-transform: capitalize;
 	font-size: 35px;
-	/*line-height: 21px;*/
 	margin-bottom: 5px;
 	font-family: "Mate";
-	color: #3f3047;
 	font-weight: 400;
 	font-style: normal;
 }
@@ -181,7 +128,7 @@ section article p {
 	 margin-bottom: 10px;
 }
 
-section article p.pullquote {
+.pullquote {
 	 font-size: 14px;
 	 /*line-height: 26px;*/
 	 margin-left: 15px;
@@ -213,3 +160,59 @@ ul.skillFilters > li{
 	list-style: none;
 	cursor: pointer;
 }
+
+/* Right
+ /$$$$$$$  /$$$$$$  /$$$$$$  /$$   /$$ /$$$$$$$$
+| $$__  $$|_  $$_/ /$$__  $$| $$  | $$|__  $$__/
+| $$  \ $$  | $$  | $$  \__/| $$  | $$   | $$   
+| $$$$$$$/  | $$  | $$ /$$$$| $$$$$$$$   | $$   
+| $$__  $$  | $$  | $$|_  $$| $$__  $$   | $$   
+| $$  \ $$  | $$  | $$  \ $$| $$  | $$   | $$   
+| $$  | $$ /$$$$$$|  $$$$$$/| $$  | $$   | $$   
+|__/  |__/|______/ \______/ |__/  |__/   |__/   
+*/
+
+.page-details {
+	height: 80%;
+	overflow: auto;
+}
+
+.page-details .sectionHeading  {
+	font-size: 25px;
+}
+
+/*div.panel {
+	margin-top: 100px;
+}
+
+.label {
+	padding: 15px;
+	margin : 5px; 
+}
+
+div.btn-group span:nth-child(2) {
+	margin-top: 20px;
+}*/
+
+/*.filters {
+	cursor: pointer;
+	display: block;
+	font-size: 75%;
+	font-weight: bold;
+	line-height: 1;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: .25em;
+	padding: 15px;
+	margin : 5px; 
+	background-color: white;
+	color: #3f7cac;
+	border: solid thin #3f7cac;
+}
+
+.filters.active {
+	background-color: #3f7cac;
+	color: white;
+}*/
+
