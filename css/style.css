@@ -180,39 +180,3 @@ ul.skillFilters > li{
 .page-details .sectionHeading  {
 	font-size: 25px;
 }
-
-/*div.panel {
-	margin-top: 100px;
-}
-
-.label {
-	padding: 15px;
-	margin : 5px; 
-}
-
-div.btn-group span:nth-child(2) {
-	margin-top: 20px;
-}*/
-
-/*.filters {
-	cursor: pointer;
-	display: block;
-	font-size: 75%;
-	font-weight: bold;
-	line-height: 1;
-	text-align: center;
-	white-space: nowrap;
-	vertical-align: baseline;
-	border-radius: .25em;
-	padding: 15px;
-	margin : 5px; 
-	background-color: white;
-	color: #3f7cac;
-	border: solid thin #3f7cac;
-}
-
-.filters.active {
-	background-color: #3f7cac;
-	color: white;
-}*/
-

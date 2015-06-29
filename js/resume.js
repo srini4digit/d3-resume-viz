@@ -250,19 +250,5 @@ var data = {
                                           "what" : "Work"}
                                       ]
                             }
-                ],
-    "interests" : [
-                  {
-                    "from" : "2003/07",
-                    "to" : "2007/07",
-                    "what" : "Test Interest 1",
-                    "where" : "VJTI, University of Mumbai"
-                  },
-                  {
-                    "from" : "2007/07",
-                    "to" : "2009/12",
-                    "what" : "Test Interest 2",
-                    "where" : "University of Maryland, College Park"
-                  }
-      ]
+                ]
 };
